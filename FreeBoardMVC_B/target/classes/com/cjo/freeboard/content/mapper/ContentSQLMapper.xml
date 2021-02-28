@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjo.freeboard.content.mapper.ContentSQLMapper">
+	<!-- 
+		<![CDATA[]]>
+	 -->
+
+	<!-- 글쓰기 -->
+	<insert id="insert">
+		<![CDATA[
+			INSERT INTO JET_board_free VALUES (
+			JET_board_free_seq.nextval,
+			#{JET_member_no},
+			#{JET_board_free_title},
+			#{JET_board_free_content},
+			0,
+			SYSDATE
+			)
+		]]>
+	</insert>
+
+	<!-- 게시판 출력... 페이징 처리 전.. -->
+	<select id="selectAll" resultType="com.cjo.freeboard.vo.ContentVo">
+		<![CDATA[
+			SELECT * FROM JET_board_free 
+			ORDER BY JET_board_free_no DESC
+		]]>
+	</select>
+
+	<!-- 글 보기 -->
+	<select id="selectByNo" resultType="com.cjo.freeboard.vo.ContentVo">
+		<![CDATA[
+			SELECT * FROM JET_board_free WHERE JET_board_free_no = #{no}
+		]]>
+	</select>
+
+	<!-- 글 삭제-->
+	<delete id="deleteByNo">
+		<![CDATA[
+			DELETE FROM JET_board_free WHERE jet_board_free_no = #{no}
+		]]>
+	</delete>
+
+	<!-- 글 수정 -->
+	<update id="update">
+		<![CDATA[			
+			UPDATE JET_board_free 
+			SET JET_board_free_title = #{JET_board_free_title},
+			JET_board_free_content = #{JET_board_free_content} 
+			WHERE JET_board_free_no = #{JET_board_free_no}
+		]]>
+	</update>
+	
+	<!-- 글 조회수 증가 -->
+	 <update id="increaseReadcount">
+	 	<![CDATA[
+	 		UPDATE JET_board_free 
+	 		SET JET_board_free_readcount = JET_board_free_readcount + 1 
+			WHERE JET_board_free_no = #{no}
+	 	]]>
+	 </update>
+	
+	
+	<!-- 좋아요 하트 
+	<update id="like_check" parameterType="HashMap">
+	    UPDATE JET_board_free_like
+	    SET JET_board_free_like_check = JET_board_free_like_check + 1 
+	    WHERE JET_member_no=#{JET_member_no}
+	    AND JET_board_free_no=#{JET_board_free_no}
+	</update>
+	  
+	  좋아요 취소
+	  <update id="like_check_cancel" parameterType="HashMap">
+	    UPDATE JET_board_free_like
+	    SET JET_board_free_like_check = 0
+	    WHERE JET_member_no=#{JET_member_no} 
+	    AND JET_board_free_no=#{JET_board_free_no}
+	  </update>
+
+-->
+	
+	
+</mapper>
+

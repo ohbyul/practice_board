@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjo.freeboard.member.mapper.MemberSQLMapper">
+
+	
+	<!-- 
+		<![CDATA[]]>
+	 -->
+	
+	
+	<!-- 회원가입 인서트 --> 
+	<insert id="insert">
+		<![CDATA[
+			INSERT INTO JET_Member VALUES (
+			JET_member_seq.nextval,
+			#{JET_member_id},
+			#{JET_member_pw},
+			#{JET_member_name},
+			#{JET_member_nick},
+			#{JET_member_phone},
+			#{JET_member_kakao},
+			#{JET_member_grade},
+			#{JET_member_credit},
+			SYSDATE,
+			SYSDATE
+			)
+		]]>
+	</insert>
+	
+	<!-- 로그인시 아이디 비밀번호 셀렉트 -->
+	<select id="seleteByIdAndPw" resultType="com.cjo.freeboard.vo.MemberVo">
+		<![CDATA[
+			SELECT * FROM JET_Member 
+			WHERE JET_Member_id = #{JET_member_id}
+			AND JET_Member_pw = #{JET_member_pw}
+		]]>
+	</select>
+
+	<!-- 멤버 뽑아오기  -->
+	<select id="selectByNo" resultType="com.cjo.freeboard.vo.MemberVo">
+		<![CDATA[
+			SELECT * FROM JET_Member WHERE JET_member_no = #{no}
+		]]>
+	</select>
+
+
+</mapper>
